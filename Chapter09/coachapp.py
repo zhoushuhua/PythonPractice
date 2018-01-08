@@ -31,10 +31,11 @@ def status_update(msg, how_long = 2):
 # 显示提示信息
 status_update(hello_msg)
 # 获取选手列表名字
-athlete_names = json.loads(send_to_server(web_server + get_name_cgi))
+athletes = json.loads(send_to_server(web_server + get_name_cgi))
+# 获取选手姓名
 # 创建弹出框
 app.dialogCreateAlert(list_title)
-app.dialogSetSingleChoiceItems(athlete_names)
+app.dialogSetSingleChoiceItems([athlete["name"] for athlete in athletes])
 app.dialogSetPositiveButtonText('Select')
 app.dialogSetNegativeButtonText('Quit')
 app.dialogShow()
@@ -50,12 +51,12 @@ if resp['which'] in ('positive'):
     # 返回选中列表的索引信息
     selected_athlete = app.dialogGetSelectedItems().result[0]
     # 获取对应的选手姓名
-    which_athlete = athlete_names[selected_athlete]
+    which_athlete = athletes[selected_athlete]["id"]
     
     # 向服务器请求数据
     athlete = json.loads(send_to_server(web_server + get_data_cgi, {"which_athlete" : which_athlete}))
     # 弹出框提示信息
-    athlete_title = athlete['name'] + "(" + athlete['DOB'] + ") top3  times:"
+    athlete_title = athlete['Name'] + "(" + athlete['DOB'] + ") top3  times:"
     app.dialogCreateAlert(athlete_title)
     app.dialogSetItems(athlete['top3'])
     app.dialogSetPositiveButtonText("OK")

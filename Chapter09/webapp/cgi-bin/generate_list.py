@@ -19,7 +19,7 @@ print(yate.para("Select an athlete from the list to work with:"))
 
 # 利用For循环加载单选按钮
 for athlete_name in athlete_names:
-    print(yate.radio_button("which_athlete", athlete_name["name"]))
+    print(yate.radio_button("which_athlete", str(athlete_name["id"]), athlete_name["name"]))
 # 加载表单结束部分
 print(yate.end_form("Select"))
 

@@ -8,7 +8,7 @@ import athletemodel
 # cgitb.enable()
 
 # 返回姓名
-names = athletemodel.get_names_from_store()
+names = athletemodel.get_namesID_from_store()
 
 # 设置响应格式
 print(yate.start_response("application/json"))

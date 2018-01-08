@@ -4,14 +4,14 @@ import yate
 import athletemodel
 import cgi
 
-# 返回姓名
-athletes = athletemodel.get_from_store()
 # 获取请求数据
 form_data = cgi.FieldStorage()
 # 获取请求数据结果
-athlete_name = form_data['which_athlete'].value
+athlete_id = form_data['which_athlete'].value
+# 获取数据
+athlete = athletemodel.get_athlete_from_id(athlete_id)
 
 # 设置响应格式
 print(yate.start_response("application/json"))
 # 返回数据
-print(json.dumps(athletes[athlete_name].to_dict))
+print(json.dumps(athlete))

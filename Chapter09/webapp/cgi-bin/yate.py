@@ -42,8 +42,11 @@ def end_form(submit_msg="submit"):
     return("<p></p><input type=\"submit\" value=\"" + submit_msg + "\" /></form>")
 
 # 加载单选按钮
-def radio_button(rb_name, rb_value):
-    return("<input type=\"radio\" name=\"" + rb_name + "\" value=\"" + rb_value + "\" />" + rb_value + "<br />")
+def radio_button(rb_name, rb_value, rb_text = None):
+    # 验证显示是否有数据
+    if rb_text is None:
+        rb_text = rb_value
+    return("<input type=\"radio\" name=\"" + rb_name + "\" value=\"" + rb_value + "\" />" + rb_text + "<br />")
 
 # 加载列表
 def u_list(items):
