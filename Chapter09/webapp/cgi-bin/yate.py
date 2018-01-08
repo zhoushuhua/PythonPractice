@@ -65,11 +65,11 @@ def para(para_text):
 def create_inputs(inputs_list):
     html_inputs = ""
     for input_name in inputs_list:
-        html_inputs += '<input type="text" name="'+input_name+'" />&nbsp;&nbsp;<br/>'
+        html_inputs += '<input type="text" name="'+input_name+'" /><br/>'
     return(html_inputs)
 
 # 创建表单
-def do_from(name, the_inputs, method="POST", text="Submit"):
+def do_form(name, the_inputs, method="POST", text="Submit"):
     # 定义模板文件名
     file_name = "templates/form.html"
     try:
@@ -81,7 +81,7 @@ def do_from(name, the_inputs, method="POST", text="Submit"):
         inputs = create_inputs(the_inputs)
 
         # 创建表单
-        return(form.substitue(cgi_name=name, http_method=method, list_of_inputs=inputs, submit_text=text))
+        return(form.substitute(cgi_name=name, http_method=method, list_of_inputs=inputs, submit_text=text))
     except IOError as error:
         print("Read " + file_name + " error:" + str(error))
     return(None)
