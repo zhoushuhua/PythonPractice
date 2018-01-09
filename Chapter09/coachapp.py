@@ -60,10 +60,29 @@ if resp['which'] in ('positive'):
     app.dialogCreateAlert(athlete_title)
     app.dialogSetItems(athlete['top3'])
     app.dialogSetPositiveButtonText("OK")
+    # 新增窗口切换功能
+    app.dialogSetNegativeButtonText("Add Time")
     app.dialogShow()
 
     # 等待用户点击
     resp = app.dialogGetResponse().result
 
+    # 判断是否有选中
+    if resp["which"] in ('positive'):
+        pass
+    elif resp["which"] in ("negative"):
+        # 添加数据提示
+        timing_title = "Enter a new time"
+        timing_msg = "Provide a new timing value " + athlete["Name"] + ":"
+        # 打开新窗口
+        resp = app.dialogGetInput(timing_title, timing_msg).result
+        # 验证是否有返回结果
+        if resp is not None:
+            new_time = resp
+            # 添加时间接口
+            add_time_cgi = "/cgi-bin/add_timing_data.py"
+            # 添加数据
+            send_to_server(web_server + add_time_cgi, {"athlete_id" : which_athlete, "athlete_time" : new_time})
+    
 # 显示退出提示信息
 status_update(quit_msg)
