@@ -2,12 +2,20 @@
 from google.appengine.ext import db
 
 class Sighting(db.Model):
+
+    # 定义多选列表
+    _FINS = ["Falcate", "Triangular", "Rouded"]
+    _WHALES = ["Humpback", "Orca", "Blue", "Killer", "Beluga", "Fin", "Gray", "Sperm"]
+    _BLOWS = ["Tall", "Bushy", "Dense"]
+    _WAVES = ["Flat", "Small", "Moderate", "Large", "Breaking", "High"]
+    
     name = db.StringProperty()
     email = db.StringProperty()
-    date = db.DateProperty()
-    time = db.TimeProperty()
-    location = db.StringProperty()
-    fin_type = db.StringProperty()
-    whale_type = db.StringProperty()
-    blow_type = db.StringProperty()
-    wave_type = db.StringProperty()
+    date = db.StringProperty()
+    time = db.StringProperty()
+    location = db.StringProperty(multiline = True)
+    fin_type = db.StringProperty(choices = _FINS)
+    whale_type = db.StringProperty(choices = _WHALES)
+    blow_type = db.StringProperty(choices = _BLOWS)
+    wave_type = db.StringProperty(choices = _WAVES)
+    which_user = db.UserProperty()
